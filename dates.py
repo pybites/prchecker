@@ -5,12 +5,14 @@ NOW = datetime.now()
 HACKTOBER_RANGE = ('2017-09-30T00:00:00-12:00'
                    '..'
                    '2017-10-31T23:59:59-12:00')
+MONTH_INT_TO_NAME = {k: v for k, v in
+                     enumerate(calendar.month_name)}
 
 
-def get_date_range(month):
+def get_date_range(month, hacktober_range=False):
     '''Get date range (start-end day) of month
-       If Oct take Digital Ocean's more inclusive
-       Hacktoberfest range'''
+       Call with hacktober_range=True to match Digital Ocean's
+       more inclusive Hacktoberfest range for Oct'''
     try:
         month = int(month)
     except ValueError:
@@ -19,7 +21,7 @@ def get_date_range(month):
     if month not in range(1, 13):
         month = NOW.month
 
-    if month == 10:
+    if month == 10 and hacktober_range:
         return HACKTOBER_RANGE
 
     _, end_day = calendar.monthrange(NOW.year, month)

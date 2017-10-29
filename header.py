@@ -8,9 +8,9 @@ feedback_messages = [
 ]
 
 
-def get_feedback(prs):
+def get_header(prs):
     if prs is None:
-        return ''
+        return feedback_messages[0]
 
     if prs.totalCount > 4:
         return feedback_messages[-1]

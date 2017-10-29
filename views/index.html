@@ -5,91 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/style.css" rel="stylesheet" type="text/css" />
     <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
-    <style>
-      /**
-      * Body CSS
-      */
-
-      html,
-      body {
-        height: 100%;
-      }
-
-      html,
-      body,
-      input,
-      textarea,
-      button {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-      }
-
-      /**
-      * Header CSS
-      */
-
-      header {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 2;
-      }
-
-      header ul.mui-list--inline {
-        margin-bottom: 0;
-      }
-
-      header a {
-        color: white;
-      }
-
-
-      /**
-      * Content CSS
-      */
-
-      #content-wrapper {
-        min-height: 100%;
-
-        /* sticky footer */
-        box-sizing: border-box;
-        margin-bottom: -100px;
-        padding-bottom: 100px;
-      }
-
-
-      /**
-      * Footer CSS
-      */
-
-      footer {
-        box-sizing: border-box;
-        height: 100px;
-        background-color: #eee;
-        border-top: 1px solid #e0e0e0;
-        padding-top: 35px;
-      }
-
-      /** customized **/
-      img#logo {
-        width: 50px;
-      }
-      table#prs td {
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-      .mui-appbar {
-        background-color: #2e4053;
-      }
-      .mui-textfield>input {
-        background-color: #fff;
-        border-bottom: 1px solid #fff;
-        height: 37px;
-      }
-    </style>
     <title>PyBites PR checker</title>
   </head>
   <body>
@@ -126,22 +43,25 @@
 
       <div class="mui--appbar-height"></div>
 
-      <h2>{{ feedback }}</h2>
-
       {% if prs %}
+      <--<h2><img src='{{ prs[0].user.avatar_url }} '>{{ feedback }}</h2>-->
+       
+        <h2>Open PR
         <table id="prs" class="mui-table">
           <thead>
             <tr>
-              <th>Repo</th>
+              <th>User</th>
               <th>Title</th>
+              <th>Body</th>
               <th>Created</th>
             </tr>
           </thead>
           <tbody>
             {% for pr in prs %}
               <tr>
-                <td><a href='{{ pr.pull_request.html_url }}' target='_blank'>{{ pr.repository.name }}</a></td>
-                <td>{{ pr.title }}</td>
+                <td><a href='https://github.com/{{ pr.user.name }}'><img src='{{ pr.user.avatar_url }} '></a></td>
+                <td><a href='{{ pr.html_url }}' target='_blank'>{{ pr.title }}</a></td>
+                <td>{{ pr.body }}</td>
                 <td>{{ pr.created_at }}</td>
               </tr>
             {% endfor %}
