@@ -1,4 +1,5 @@
 from bottle import route, run, request, static_file, view
+from github import GithubException
 
 from header import get_header
 from ghapi import get_open_challenges_prs, get_prs_user
@@ -12,19 +13,31 @@ def send_static(filename):
 @route('/')
 @view('index')
 def index():
-    prs = get_open_challenges_prs()
-    return {'prs': prs}
+    try:
+        prs = get_open_challenges_prs()
+    except GithubException as exc:
+        print(exc)
+        prs = []
+
+    return {'prs': prs,
+            'header': None}
 
 
-@route('/user', method='POST')
+@route('/', method='POST')
+@route('/<username>')
 @view('index')
-def user():
+def user(username=None):
+    prs = []
 
-    username = request.forms.get('username') or None
-    prs = None
+    if username is None:
+        username = request.forms.get('username') or None
 
     if username is not None:
-        prs = get_prs_user(username)
+        try:
+            prs = get_prs_user(username)
+        except GithubException as exc:
+            print(exc)
+            prs = []
 
     header = get_header(prs)
 

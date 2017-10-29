@@ -9,10 +9,8 @@ feedback_messages = [
 
 
 def get_header(prs):
-    if prs is None:
-        return feedback_messages[0]
-
     num_prs = len(prs)
+
     if num_prs > 4:
         return feedback_messages[-1]
 

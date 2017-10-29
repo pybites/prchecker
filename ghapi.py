@@ -2,6 +2,7 @@ import calendar
 from collections import namedtuple
 from datetime import datetime
 import os
+import re
 import sys
 
 from github import Github
@@ -12,6 +13,7 @@ if not GH_USER or not GH_PW:
     print('Please set GH_USER and GH_PW env vars')
     sys.exit(1)
 
+NO_BODY = 'No PR description'
 REPO = 'pybites/challenges'
 
 gh = Github(GH_USER, GH_PW)
@@ -26,13 +28,16 @@ def _get_date_range():
     return '{0}01..{0}{1}'.format(yymm, end_day)
 
 
+def _get_review(body):
+    body = body.replace('\r', '').replace('\n', '')
+    review = re.sub(r'.*review post: (.*)Other feedback.*', r'\1', body)
+    return 'Review: ' + review.strip('[]')
+
+
 def get_open_challenges_prs():
     prs = []
     for pr in gh.get_repo(REPO).get_pulls('open'):
-        if pr.body:
-            body = '\n'.join(pr.body.split('\n')[2:-3])
-        else:
-            body = ''
+        body = _get_review(pr.body) if pr.body else NO_BODY
         prs.append(Pr(user=pr.user,
                       url=pr.html_url,
                       title=pr.title,
@@ -48,9 +53,10 @@ def get_prs_user(username):
                                author=username,
                                type='pr',
                                created=created):
+        body = pr.body if pr.body else NO_BODY
         prs.append(Pr(user=pr.user,
                       url=pr.html_url,
                       title=pr.title,
-                      feedback=pr.body,
+                      feedback=body,
                       created=pr.created_at))
     return prs

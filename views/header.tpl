@@ -20,7 +20,7 @@
             </td>
 
             <td class="mui--text-title">
-              <form action="/user" class="mui-form--inline" method="POST">
+              <form action="/" class="mui-form--inline" method="POST">
                 <div class="mui-textfield">
                   <input name="username" type="text" placeholder="Github username">
                 </div>
@@ -38,6 +38,3 @@
         </table>
       </div>
     </header>
-
-    <div id="content-wrapper" class="mui--text-center">
-      <div class="mui--appbar-height"></div>
