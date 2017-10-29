@@ -12,7 +12,8 @@ def get_header(prs):
     if prs is None:
         return feedback_messages[0]
 
-    if prs.totalCount > 4:
+    num_prs = len(prs)
+    if num_prs > 4:
         return feedback_messages[-1]
 
-    return feedback_messages[prs.totalCount]
+    return feedback_messages[num_prs]

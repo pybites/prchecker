@@ -20,9 +20,9 @@
             </td>
 
             <td class="mui--text-title">
-              <form class="mui-form--inline" method="GET">
+              <form action="/user" class="mui-form--inline" method="POST">
                 <div class="mui-textfield">
-                  <input name="username" type="text" placeholder="Github username" value='{{ username }}'>
+                  <input name="username" type="text" placeholder="Github username">
                 </div>
                 <button type="submit" class="mui-btn mui-btn--raised">Check PRs</button>
               </form>
@@ -40,41 +40,4 @@
     </header>
 
     <div id="content-wrapper" class="mui--text-center">
-
       <div class="mui--appbar-height"></div>
-
-      {% if prs %}
-      <--<h2><img src='{{ prs[0].user.avatar_url }} '>{{ feedback }}</h2>-->
-       
-        <h2>Open PR
-        <table id="prs" class="mui-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Title</th>
-              <th>Body</th>
-              <th>Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for pr in prs %}
-              <tr>
-                <td><a href='https://github.com/{{ pr.user.name }}'><img src='{{ pr.user.avatar_url }} '></a></td>
-                <td><a href='{{ pr.html_url }}' target='_blank'>{{ pr.title }}</a></td>
-                <td>{{ pr.body }}</td>
-                <td>{{ pr.created_at }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      {% endif %}
-
-    </div>
-
-    <footer>
-      <div class="mui-container mui--text-center">
-        Made with ♥ by <a href="https://www.muicss.com">MUICSS</a>
-      </div>
-    </footer>
-  </body>
-</html>
