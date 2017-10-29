@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+    <style>
+      /**
+      * Body CSS
+      */
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      html,
+      body,
+      input,
+      textarea,
+      button {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+      }
+
+      /**
+      * Header CSS
+      */
+
+      header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 2;
+      }
+
+      header ul.mui-list--inline {
+        margin-bottom: 0;
+      }
+
+      header a {
+        color: white;
+      }
+
+
+      /**
+      * Content CSS
+      */
+
+      #content-wrapper {
+        min-height: 100%;
+
+        /* sticky footer */
+        box-sizing: border-box;
+        margin-bottom: -100px;
+        padding-bottom: 100px;
+      }
+
+
+      /**
+      * Footer CSS
+      */
+
+      footer {
+        box-sizing: border-box;
+        height: 100px;
+        background-color: #eee;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 35px;
+      }
+
+      /** customized **/
+      img#logo {
+        width: 50px;
+      }
+      table#prs td {
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      .mui-appbar {
+        background-color: #2e4053;
+      }
+      .mui-textfield>input {
+        background-color: #fff;
+        border-bottom: 1px solid #fff;
+        height: 37px;
+      }
+    </style>
+    <title>PyBites PR checker</title>
+  </head>
+  <body>
+    <header class="mui-appbar mui--z1">
+      <div class="mui-container">
+        <table width="100%">
+          <tr class="mui--appbar-height">
+            <td class="mui--text-title">
+              <a href="https://pybit.es/">
+                <img id="logo" src='https://avatars0.githubusercontent.com/u/24620154?s=400&v=4' alt='PyBites'></a>
+            </td>
+
+            <td class="mui--text-title">
+              <form class="mui-form--inline" method="GET">
+                <div class="mui-textfield">
+                  <input name="username" type="text" placeholder="Github username" value='{{ username }}'>
+                </div>
+                <button type="submit" class="mui-btn mui-btn--raised">Check PRs</button>
+              </form>
+            </td>
+
+            <td align="right">
+              <ul class="mui-list--inline mui--text-body2">
+                <li><a href="/">Home</a></li>
+                <li><a href="https://pybit.es/codechallenge38.html">Challenge</a></li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </header>
+
+    <div id="content-wrapper" class="mui--text-center">
+
+      <div class="mui--appbar-height"></div>
+
+      <h2>{{ feedback }}</h2>
+
+      {% if prs %}
+        <table id="prs" class="mui-table">
+          <thead>
+            <tr>
+              <th>Repo</th>
+              <th>Title</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pr in prs %}
+              <tr>
+                <td><a href='{{ pr.pull_request.html_url }}' target='_blank'>{{ pr.repository.name }}</a></td>
+                <td>{{ pr.title }}</td>
+                <td>{{ pr.created_at }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+    </div>
+
+    <footer>
+      <div class="mui-container mui--text-center">
+        Made with ♥ by <a href="https://www.muicss.com">MUICSS</a>
+      </div>
+    </footer>
+  </body>
+</html>
