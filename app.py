@@ -1,3 +1,5 @@
+import os
+
 from bottle import route, run, request, static_file, view
 from github import GithubException
 
@@ -45,4 +47,7 @@ def user(username=None):
             'header': header}
 
 
-run(host='localhost', port=8080, reloader=True)
+if os.environ.get('APP_LOCATION') == 'heroku':
+    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+else:
+    run(host='localhost', port=8080, debug=True, reloader=True)
