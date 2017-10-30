@@ -37,7 +37,9 @@ def _get_review(body):
 def get_open_challenges_prs():
     prs = []
     for pr in gh.get_repo(REPO).get_pulls('open'):
+
         body = _get_review(pr.body) if pr.body else NO_BODY
+
         prs.append(Pr(user=pr.user,
                       url=pr.html_url,
                       title=pr.title,
@@ -53,7 +55,11 @@ def get_prs_user(username):
                                author=username,
                                type='pr',
                                created=created):
+
         body = pr.body if pr.body else NO_BODY
+        if body.startswith('ATTENTION:'):
+            body = _get_review(body)
+
         prs.append(Pr(user=pr.user,
                       url=pr.html_url,
                       title=pr.title,
