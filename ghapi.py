@@ -31,7 +31,8 @@ def _get_date_range():
 def _get_review(body):
     body = body.replace('\r', '').replace('\n', '')
     review = re.sub(r'.*review post: (.*)Other feedback.*', r'\1', body)
-    return 'Review: ' + review.strip('[]')
+    review = review.strip('[]')
+    return review if review else NO_BODY
 
 
 def get_open_challenges_prs():
