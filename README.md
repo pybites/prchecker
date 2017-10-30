@@ -1,12 +1,26 @@
-# prchecker 
+# PR Checker 
 
-Hacktoberfest like checker:
+Built for [Code Challenge 38 - Build Your Own Hacktoberfest Checker With Bottle](https://pybit.es/codechallenge38.html)
 
-* Homepage default is open PRs for [PyBites Code Challenges](https://pybit.es/pages/challenges.html) ([repo](https://github.com/pybites/challenges))
-* Type in a name and find PRs submitted current month (*Hacktoberfest extended*)
+It's a [Hacktoberfest](https://hacktoberfest.digitalocean.com) like checker that does two things:
 
-Runs [here](https://pybites-prs.herokuapp.com/).
+* Shows open PRs for [PyBites Code Challenges](https://pybit.es/pages/challenges.html) ([repo](https://github.com/pybites/challenges)) - typically for running month.
+* Type in a name and find PRs for the user submitted current month (so we have a bit of  *Hacktoberfest* year round)
 
-Built wiith [Bottle](https://bottlepy.org) for [Code Challenge 38 - Build Your Own Hacktoberfest Checker With Bottle](https://pybit.es/codechallenge38.html)
+Deployed to [https://pybites-prs.herokuapp.com/](https://pybites-prs.herokuapp.com/).
 
-I used [these Bottle Heroku deploy instructions](https://github.com/chucknado/bottle_heroku_tutorial).
+## Heroku
+
+Fork this repo if you want to extend it. To deploy it to Heroku:
+
+* heroku app:create app-name
+* chmod a+x app.py
+* echo 'web: python ./app.py' > Procfile
+* echo 'python-3.6.2' > runtime.txt
+* pip freeze > requirements.txt
+* git add .
+* git commit -m "heroku prep"
+* git push heroku master
+* heroku config:set APP_LOCATION=heroku
+* heroku config:set GH_USER=abc
+* heroku config:set GH_PW=def
