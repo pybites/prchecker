@@ -22,7 +22,7 @@
           <th>User</th>
           <th>Title</th>
           <th>Created</th>
-          <th>PR description</th>
+          <th>PR description / review</th>
         </tr>
       </thead>
       <tbody>
