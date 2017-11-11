@@ -28,10 +28,21 @@ def _get_date_range():
     return '{0}01..{0}{1}'.format(yymm, end_day)
 
 
+def _get_slice(lines):
+    start, end = 0, len(lines)
+    for i, line in enumerate(lines):
+        if 'review post' in line:
+            start = i
+        elif 'Other feedback' in line:
+            end = i
+    return start, end
+
+
 def _get_review(body):
-    body = body.replace('\r', '').replace('\n', '')
-    review = re.sub(r'.*review post: (.*)Other feedback.*', r'\1', body)
-    review = review.strip('[]')
+    lines = body.replace('\r', '').split('\n')
+    start, end = _get_slice(lines)
+    review = '\n'.join(lines[start:end])
+    review = re.sub(r'.*?\[(.*)\].*', r'\1', review)
     return review if review else NO_BODY
 
 
