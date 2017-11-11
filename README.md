@@ -13,7 +13,7 @@ Deployed to [https://pybites-prs.herokuapp.com/](https://pybites-prs.herokuapp.c
 
 Fork this repo if you want to extend it. To deploy it to Heroku:
 
-* heroku app:create app-name
+* heroku apps:create app-name
 * chmod a+x app.py
 * echo 'web: python ./app.py' > Procfile
 * echo 'python-3.6.2' > runtime.txt
